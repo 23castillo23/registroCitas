@@ -1,0 +1,9 @@
+Array
+(
+    [id] => 230f36a2-a040-4802-b7cd-26a7f4d711e1
+    [nombre] => Sofía Martínez
+    [curp] => MARS960606MDFRNS06
+    [tramite] => Matrimonio Civil
+    [datetime] => 2025-10-07T11:30
+    [folio] => FOLIO-MAT-0088
+)

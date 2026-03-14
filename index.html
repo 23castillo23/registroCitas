@@ -1,0 +1,251 @@
+<!DOCTYPE html> <!-- Define que este documento es HTML5 -->
+<html lang="es"> <!-- Comienza el documento HTML, con idioma español -->
+<head>
+    <meta charset="UTF-8" /> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- Hace que la página sea responsiva en móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Repetido: mismo efecto de responsividad -->
+    <title>Sistema de Citas - Registro Civil Nogales</title> <!-- Título que aparece en la pestaña del navegador -->
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/style.css" /> <!-- Enlaza el archivo CSS principal -->
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Biblioteca jsPDF para generar PDFs -->
+
+    <!-- FullCalendar (v5) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" /> <!-- Estilos de FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script> <!-- Script principal de FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script> <!-- Traducciones y configuraciones de idiomas -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/plugins/interaction/main.min.js"></script> <!-- Plugin para interacción (drag, click, etc.) -->
+    
+</head>
+<body>
+    <header> <!-- Encabezado de la página -->
+        <div class="logo">Registro Civil</div> <!-- Logo o nombre del sitio -->
+        <nav> <!-- Menú de navegación -->
+            <ul>
+                <li><a href="#inicio">Inicio</a></li> <!-- Enlace al inicio de la página -->
+                <li><a href="#tramites">Trámites</a></li> <!-- Enlace a la sección de trámites -->
+                <li><a href="#horarios">Horarios</a></li> <!-- Enlace a la sección de horarios -->
+                <li><a href="#cita">Agendar cita</a></li> <!-- Enlace a la sección de agendar cita -->
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content"> <!-- Contenido principal de la página -->
+        <section id="inicio" class="hero" aria-label="Portada"> <!-- Sección principal de bienvenida -->
+            <div class="hero-overlay"></div> <!-- Capa de fondo semi-transparente sobre la imagen de portada -->
+            <div class="hero-content"> <!-- Contenido visible en la portada -->
+                <h1>Haz tus trámites más fáciles y rápidos</h1> <!-- Título principal -->
+                <p>Ahorra tiempo y evita traslados</p> <!-- Subtítulo o descripción -->
+                <a href="#cita" class="btn">Agendar cita</a> <!-- Botón que lleva a la sección de agendar cita -->
+            </div>
+        </section>
+
+        <section id="tramites" class="section"> <!-- Sección de trámites disponibles -->
+            <h2>Trámites disponibles</h2> <!-- Título de la sección -->
+            <p style="text-align: center; margin-bottom: 30px;">Haz clic en un trámite para ver los detalles y requisitos.</p> <!-- Instrucciones -->
+            <div class="cards"> <!-- Contenedor de tarjetas de trámites -->
+                <a href="#" class="card tramite" data-tramite="nacimiento"> <!-- Tarjeta de trámite de nacimiento -->
+                    <img src="img/nacimiento.png" alt="Acta de nacimiento" class="icono"> <!-- Icono del trámite -->
+                    <h3>Registro de Nacimiento</h3> <!-- Nombre del trámite -->
+                    <p>Registra a un nuevo ciudadano.</p> <!-- Descripción breve -->
+                </a>
+                <a href="#" class="card tramite" data-tramite="matrimonio"> <!-- Tarjeta de trámite de matrimonio -->
+                    <img src="img/matrimonio.png" alt="Matrimonio" class="icono"> 
+                    <h3>Matrimonio Civil</h3>
+                    <p>Formaliza legalmente la unión.</p>
+                </a>
+                <a href="#" class="card tramite" data-tramite="defuncion"> <!-- Tarjeta de trámite de defunción -->
+                    <img src="img/defuncion.png" alt="Defunción" class="icono">
+                    <h3>Acta de Defunción</h3>
+                    <p>Trámite para registrar el fallecimiento.</p>
+                </a>
+                <a href="#" class="card tramite" data-tramite="otros"> <!-- Tarjeta de otros trámites -->
+                    <img src="img/otros.png" alt="Otros trámites" class="icono">
+                    <h3>Copias Certificadas</h3>
+                    <p>Solicita copias oficiales de actas.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="horarios" class="section"> <!-- Sección de horarios de atención -->
+            <h2>Horarios de atención</h2>
+            <div class="card horario"> <!-- Tarjeta de horario -->
+                <p><strong>Lunes a Viernes:</strong> 9:00 AM - 3:00 PM</p>
+                <p><strong>Sábados:</strong> 9:00 AM - 1:00 PM</p>
+                <p><strong>Domingos y festivos:</strong> Cerrado</p>
+            </div>
+        </section>
+
+        <section id="cita" class="section"> <!-- Sección para agendar citas -->
+            <h2>Agendar una cita</h2>
+            <div id="calendar" style="max-width: 900px; margin: auto;"></div> <!-- Contenedor del calendario FullCalendar -->
+
+<!-- Modal para crear/ver/editar cita -->
+<div id="modal-form" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <!-- Contenedor principal del modal, inicialmente oculto con la clase "hidden" -->
+    <!-- role="dialog" indica que es un diálogo modal accesible -->
+    <!-- aria-modal="true" informa a lectores de pantalla que la ventana bloquea interacción con el fondo -->
+    <!-- aria-labelledby="modalTitle" conecta el modal con su título para accesibilidad -->
+
+    <div class="modal-content" id="modalContent">
+        <!-- Contenido interno del modal -->
+        <span class="close-button" id="closeModal" title="Cerrar">&times;</span>
+        <!-- Botón de cerrar el modal, mostrado como una "X" -->
+
+        <h3 id="modalTitle">Agendar cita</h3>
+        <!-- Título del modal -->
+
+        <form id="formCita" class="formulario" autocomplete="off">
+            <!-- Formulario para agendar la cita, desactiva autocompletado -->
+
+            <label for="modalNombre">Nombre completo:</label>
+            <input type="text" id="modalNombre" required placeholder="Nombre completo">
+            <!-- Campo de texto para nombre completo, obligatorio -->
+
+            <label for="modalCurp">CURP:</label>
+            <input type="text" id="modalCurp" required placeholder="XXXXXXXXXXXXXX" maxlength="18">
+            <!-- Campo de texto para CURP, obligatorio, máximo 18 caracteres -->
+
+            <label for="modalTramite">Trámite:</label>
+            <select id="modalTramite" required>
+                <!-- Selector desplegable de tipo de trámite, obligatorio -->
+                <option value="">-- Seleccione --</option>
+                <option value="Registro de Nacimiento">Registro de Nacimiento</option>
+                <option value="Matrimonio Civil">Matrimonio Civil</option>
+                <option value="Acta de Defunción">Acta de Defunción</option>
+                <option value="Copia Certificada">Copia Certificada</option>
+            </select>
+
+            <label for="modalFecha">Fecha</label>
+            <input type="text" id="modalFecha" readonly>
+            <!-- Campo de fecha, solo lectura; se llenará desde el calendario -->
+
+            <!-- Hora -->
+            <label for="modalHora">Hora:</label>
+            <select id="modalHora" required>
+                <!-- Selector de hora, obligatorio -->
+                <option value="">-- Selecciona una hora --</option>
+                <option value="09:00">09:00</option>
+                <option value="09:30">09:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+            </select>
+
+            <div style="display:flex; gap:12px;">
+                <!-- Contenedor de botones alineados horizontalmente con espacio entre ellos -->
+                <button type="submit" id="confirmButton">Confirmar y Descargar Cita</button>
+                <!-- Botón para confirmar la cita y generar PDF -->
+                <button type="button" id="deleteButton" class="btn-back hidden">Eliminar cita</button>
+                <!-- Botón para eliminar la cita, inicialmente oculto -->
+            </div>
+        </form>
+
+        <div id="mensaje-modal" class="mensaje" role="status" aria-live="polite"></div>
+        <!-- Contenedor para mensajes del modal (éxito, error, información), accesible para lectores de pantalla -->
+    </div>
+</div>
+</section>
+</main>
+
+   <div id="details-content" class="hidden" aria-live="polite">
+    <!-- Contenedor de detalles de trámites, inicialmente oculto -->
+    <!-- aria-live="polite" permite que lectores de pantalla anuncien cambios de manera no intrusiva -->
+
+    <section id="detalle-nacimiento" class="section detalle-tramite hidden">
+        <!-- Sección de requisitos para registro de nacimiento, inicialmente oculta -->
+        <h2>Requisitos para Registro de Nacimiento</h2>
+        <ul>
+            <li>Certificado de Nacimiento original (expedido por el hospital).</li>
+            <li>Acta de Nacimiento de los padres.</li>
+            <li>Identificación oficial vigente de los padres (INE, Pasaporte).</li>
+            <li>Acta de Matrimonio (si aplica).</li>
+            <li>Dos testigos mayores de edad con identificación oficial.</li>
+        </ul>
+        <button class="btn-pdf" data-tramite="nacimiento">Descargar Requisitos en PDF</button>
+        <!-- Botón para descargar los requisitos en PDF -->
+        <button class="btn-back">Volver a Trámites</button>
+        <!-- Botón para regresar a la lista de trámites -->
+    </section>
+
+    <section id="detalle-matrimonio" class="section detalle-tramite hidden">
+        <!-- Sección de requisitos para matrimonio civil, inicialmente oculta -->
+        <h2>Requisitos para Matrimonio Civil</h2>
+        <ul>
+            <li>Solicitud de matrimonio debidamente llenada.</li>
+            <li>Acta de nacimiento reciente de ambos contrayentes.</li>
+            <li>Identificación oficial vigente de ambos.</li>
+            <li>CURP de ambos contrayentes.</li>
+            <li>Análisis clínicos prenupciales (con vigencia no mayor a 15 días).</li>
+            <li>Constancia de soltería (si aplica).</li>
+            <li>Dos testigos por cada contrayente con identificación oficial.</li>
+        </ul>
+        <button class="btn-pdf" data-tramite="matrimonio">Descargar Requisitos en PDF</button>
+        <button class="btn-back">Volver a Trámites</button>
+    </section>
+
+    <section id="detalle-defuncion" class="section detalle-tramite hidden">
+        <!-- Sección de requisitos para acta de defunción, inicialmente oculta -->
+        <h2>Requisitos para Acta de Defunción</h2>
+        <ul>
+            <li>Certificado Médico de Defunción en formato original.</li>
+            <li>Identificación oficial del fallecido.</li>
+            <li>Acta de nacimiento del fallecido.</li>
+            <li>Identificación oficial del declarante (familiar o responsable).</li>
+            <li>CURP del fallecido.</li>
+        </ul>
+        <button class="btn-pdf" data-tramite="defuncion">Descargar Requisitos en PDF</button>
+        <button class="btn-back">Volver a Trámites</button>
+    </section>
+
+    <section id="detalle-otros" class="section detalle-tramite hidden">
+        <!-- Sección de requisitos para copias certificadas, inicialmente oculta -->
+        <h2>Requisitos para Copias Certificadas</h2>
+        <ul>
+            <li>Nombre completo de la persona registrada en el acta.</li>
+            <li>Fecha exacta de nacimiento, matrimonio, etc.</li>
+            <li>Lugar de registro (municipio, estado).</li>
+            <li>CURP (si se tiene).</li>
+            <li>Identificación oficial del solicitante.</li>
+            <li>Comprobante de pago de derechos.</li>
+        </ul>
+        <button class="btn-pdf" data-tramite="otros">Descargar Requisitos en PDF</button>
+        <button class="btn-back">Volver a Trámites</button>
+    </section>
+</div>
+
+<div id="chatbot">
+    <!-- Contenedor del asistente virtual/chatbot -->
+    <div id="chat-window" class="hidden"> 
+        <!-- Ventana del chat, inicialmente oculta -->
+        <div id="chat-header">Asistente Virtual</div>
+        <!-- Encabezado de la ventana de chat -->
+        <div id="chat-body"></div>
+        <!-- Área donde se mostrarán los mensajes -->
+        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." aria-label="Escribe tu mensaje">
+        <!-- Campo de texto para enviar mensajes al chatbot, accesible -->
+    </div>
+    <button id="chat-toggle">💬</button>
+    <!-- Botón flotante para abrir/cerrar el chatbot -->
+</div>
+
+<footer>
+    <!-- Pie de página -->
+    <p>Registro Civil Nogales, Veracruz © 2025 | Todos los derechos reservados</p>
+</footer>
+
+<!-- Script principal -->
+<script src="js/script.js"></script>
+<!-- Enlaza el archivo JavaScript principal que controla interacciones, calendario, modal y chatbot -->
+</body>
+</html>

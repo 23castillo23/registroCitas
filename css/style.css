@@ -1,0 +1,517 @@
+/* ===== ESTILOS GENERALES ===== */
+body {
+    margin: 0; /* Elimina el margen predeterminado del navegador */
+    font-family: 'Roboto', sans-serif; /* Fuente principal de toda la página */
+    background: #f4f6f9; /* Color de fondo gris claro */
+    color: #333; /* Color de texto principal */
+    -webkit-font-smoothing: antialiased; /* Mejora la apariencia de las fuentes en navegadores WebKit */
+}
+
+/* ===== HEADER ===== */
+header {
+    background: #2c3e50; /* Fondo azul oscuro para el header */
+    color: white; /* Color de texto blanco */
+    display: flex; /* Usa flexbox para organizar elementos horizontalmente */
+    justify-content: space-between; /* Distribuye espacio entre logo y menú */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 15px 30px; /* Espaciado interno del header */
+    position: sticky; /* El header se queda fijo al hacer scroll */
+    top: 0; /* Posición superior para sticky */
+    z-index: 1000; /* Se asegura de que quede encima de otros elementos */
+}
+
+header .logo {
+    font-weight: bold; /* Texto en negrita */
+    font-size: 22px; /* Tamaño de fuente del logo */
+}
+
+header nav ul {
+    list-style: none; /* Elimina los puntos de la lista */
+    margin: 0; /* Elimina margen predeterminado */
+    padding: 0; /* Elimina padding predeterminado */
+    display: flex; /* Organiza los elementos en fila */
+    gap: 20px; /* Espacio entre cada enlace */
+}
+
+header nav a {
+    color: white; /* Color de los enlaces */
+    text-decoration: none; /* Elimina subrayado */
+    font-weight: bold; /* Texto en negrita */
+    transition: color 0.3s; /* Transición suave al cambiar color */
+}
+
+header nav a:hover {
+    color: #f1c40f; /* Color amarillo al pasar el cursor */
+}
+
+/* ===== HERO (FULL-WIDTH) ===== */
+.hero {
+    position: relative; /* Posicionamiento relativo para overlay y contenido */
+    text-align: center; /* Centra el texto horizontalmente */
+    padding: 120px 20px; /* Espaciado arriba y abajo, con margen lateral */
+    color: white; /* Color de texto principal en hero */
+    background-size: cover; /* La imagen de fondo cubre todo el contenedor */
+    background-position: center; /* Centra la imagen de fondo */
+    transition: background-image 1.5s ease-in-out; /* Transición suave al cambiar imagen */
+    overflow: hidden; /* Evita que contenido se salga del contenedor */
+    width: 100%; /* Ancho completo */
+    box-sizing: border-box; /* Incluye padding dentro del ancho total */
+}
+
+.hero .hero-overlay {
+    position: absolute; /* Posiciona la capa sobre la imagen */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cubre todo el ancho del hero */
+    height: 100%; /* Cubre todo el alto del hero */
+    background-color: rgba(0, 0, 0, 0.4); /* Capa semitransparente negra */
+    z-index: 1; /* Queda debajo del contenido pero sobre la imagen */
+}
+
+.hero .hero-content {
+    position: relative; /* Se posiciona sobre el overlay */
+    z-index: 2; /* Asegura que el contenido quede encima del overlay */
+}
+
+.hero h1 {
+    font-size: 42px; /* Tamaño grande para título */
+    margin-bottom: 15px; /* Espacio debajo del título */
+}
+
+.hero p {
+    font-size: 20px; /* Tamaño de fuente para subtítulo */
+}
+
+.btn {
+    display: inline-block; /* Permite padding y margin */
+    margin-top: 20px; /* Espacio superior */
+    padding: 12px 30px; /* Espaciado interno del botón */
+    background: white; /* Fondo blanco */
+    color: #27ae60; /* Color de texto verde */
+    border-radius: 50px; /* Bordes redondeados tipo píldora */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Texto en negrita */
+    transition: all 0.3s; /* Transición para hover */
+}
+
+.btn:hover {
+    background: #ecf0f1; /* Fondo gris claro al pasar el cursor */
+    transform: scale(1.05); /* Efecto de zoom suave */
+}
+
+/* ===== SECCIONES ===== */
+.section {
+    padding: 60px 20px; /* Espacio interno arriba/abajo y lateral */
+    max-width: 1100px; /* Ancho máximo de la sección */
+    margin: auto; /* Centra horizontalmente */
+    border-radius: 15px; /* Bordes redondeados */
+    margin-bottom: 40px; /* Espacio debajo de la sección */
+    background: #ffffff; /* Fondo blanco */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave para dar profundidad */
+}
+
+/* CLASE PARA OCULTAR Y MOSTRAR CONTENIDO */
+.hidden {
+    display: none !important; /* Oculta cualquier elemento con esta clase */
+}
+
+/* ===== CARDS ===== */
+.cards {
+    display: grid; /* Uso de Grid Layout para organizar tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas según el espacio disponible */
+    gap: 25px; /* Espacio entre las tarjetas */
+}
+
+.card {
+    background: white; /* Fondo blanco */
+    padding: 25px 20px; /* Espaciado interno de la tarjeta */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.1); /* Sombra para dar profundidad */
+    text-align: center; /* Centra contenido dentro de la tarjeta */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición suave al hacer hover */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Leve desplazamiento hacia arriba al pasar el cursor */
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.15); /* Sombra más intensa en hover */
+}
+
+.card.tramite {
+    text-decoration: none; /* Quita subrayado si es enlace */
+    color: inherit; /* Hereda color del contenedor padre */
+    display: block; /* Asegura que el enlace ocupe toda la tarjeta */
+}
+
+.card h3 {
+    margin: 15px 0 10px; /* Espaciado superior e inferior del título */
+    color: #2c3e50; /* Color del texto del título */
+}
+
+.tramite { border-top: 5px solid #2980b9; } /* Línea azul arriba de tarjetas de trámites */
+.horario { border-top: 5px solid #27ae60; } /* Línea verde arriba de tarjetas de horario */
+
+.icono {
+    width: 60px; /* Ancho del icono dentro de la tarjeta */
+    margin-bottom: 10px; /* Espacio debajo del icono */
+}
+
+/* ===== FORMULARIO ===== */
+.formulario {
+    max-width: 550px; /* Ancho máximo del formulario */
+    margin: auto; /* Centra horizontalmente */
+    display: flex; /* Uso de flexbox */
+    flex-direction: column; /* Elementos en columna */
+    gap: 15px; /* Espacio entre elementos del formulario */
+    background: #f9f9f9; /* Fondo gris claro */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+input, select, button[type="submit"], button {
+    padding: 12px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde gris claro */
+    font-size: 16px; /* Tamaño de texto */
+    box-sizing: border-box; /* Incluye padding dentro del ancho total */
+}
+
+button[type="submit"] {
+    background: #27ae60; /* Fondo verde */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Cambia cursor al pasar sobre el botón */
+    border: none; /* Sin borde */
+    transition: all 0.3s; /* Transición suave para hover */
+}
+
+button[type="submit"]:hover {
+    background: #219150; /* Fondo verde más oscuro al pasar cursor */
+    transform: scale(1.02); /* Leve aumento de tamaño */
+}
+
+.mensaje {
+    margin-top: 20px; /* Espacio arriba del mensaje */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    display: none; /* Inicialmente oculto */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centrado del texto */
+}
+
+.exito { 
+    background: #d4edda; /* Fondo verde claro para mensaje de éxito */
+    color: #155724; /* Texto verde oscuro */
+    display:block; /* Muestra el mensaje */
+}
+.error { 
+    background: #f8d7da; /* Fondo rojo claro para mensaje de error */
+    color: #721c24; /* Texto rojo oscuro */
+    display:block; /* Muestra el mensaje */
+}
+
+/* ===== SECCIONES DE DETALLE DE TRÁMITES ===== */
+.detalle-tramite {
+    background-color: #fdfdfd; /* Fondo casi blanco */
+    border-left: 8px solid #2980b9; /* Línea azul a la izquierda para resaltar la sección */
+}
+
+.detalle-tramite h2 {
+    color: #2c3e50; /* Color del título de la sección detalle */
+    border-bottom: 2px solid #f1c40f; /* Línea amarilla debajo del título */
+    padding-bottom: 10px; /* Espacio interno debajo del título */
+    margin-bottom: 25px; /* Margen inferior para separar del contenido */
+}
+
+.detalle-tramite ul {
+    list-style: none; /* Quita los puntos de la lista */
+    padding-left: 0; /* Quita el padding lateral predeterminado */
+}
+
+.detalle-tramite ul li {
+    background: #f4f6f9; /* Fondo gris claro para cada ítem */
+    margin-bottom: 10px; /* Espacio entre cada ítem */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    position: relative; /* Necesario para posicionar ::before */
+    padding-left: 35px; /* Espacio a la izquierda para el icono ✔ */
+}
+
+.detalle-tramite ul li::before {
+    content: '✔'; /* Inserta un check antes de cada ítem */
+    color: #27ae60; /* Color verde para el check */
+    font-weight: bold; /* Negrita para el check */
+    position: absolute; /* Posiciona el check respecto al li */
+    left: 12px; /* Distancia desde la izquierda del li */
+    top: 15px; /* Distancia desde arriba del li */
+}
+
+.detalle-tramite button {
+    margin-top: 20px; /* Espacio arriba del botón */
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes redondeados tipo píldora */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: all 0.3s; /* Transición suave para hover */
+    border: none; /* Sin borde */
+    font-size: 15px; /* Tamaño de fuente */
+    margin-right: 15px; /* Espacio a la derecha del botón */
+}
+
+.btn-pdf {
+    background: #e74c3c; /* Fondo rojo para botón PDF */
+    color: white; /* Texto blanco */
+}
+.btn-pdf:hover {
+    background: #c0392b; /* Rojo más oscuro al pasar cursor */
+    transform: scale(1.05); /* Leve zoom al pasar cursor */
+}
+
+.btn-back {
+    background: #34495e; /* Fondo azul oscuro para botón regresar */
+    color: white; /* Texto blanco */
+}
+.btn-back:hover {
+    background: #2c3e50; /* Azul más oscuro al pasar cursor */
+    transform: scale(1.05); /* Leve zoom al pasar cursor */
+}
+
+/* ===== ESTILOS PARA FULLCALENDAR ===== */
+.fc-daygrid-event, .fc-timegrid-event {
+    border-radius: 5px; /* Bordes redondeados para eventos */
+    padding: 2px 5px; /* Espaciado interno */
+    font-size: 12px; /* Tamaño de fuente de eventos */
+    cursor: pointer; /* Cursor de puntero al pasar sobre eventos */
+}
+
+/* ===== FULLCALENDAR: DÍAS PASADOS ===== */
+.pasado {
+    background-color: #f0f0f0; /* Fondo gris para días pasados */
+    color: #999; /* Texto gris para indicar deshabilitado */
+}
+
+/* ===== CHATBOT ===== */
+#chatbot {
+    position: fixed; /* Posiciona el chatbot siempre visible */
+    bottom: 20px; /* Distancia desde la parte inferior de la ventana */
+    right: 20px; /* Distancia desde la parte derecha de la ventana */
+    z-index: 1001; /* Asegura que quede por encima de otros elementos */
+}
+
+#chat-window {
+    width: 320px; /* Ancho de la ventana del chat */
+    height: 420px; /* Alto de la ventana */
+    background: white; /* Fondo blanco */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.3); /* Sombra para dar profundidad */
+    display: flex; /* Flexbox para organizar elementos internos */
+    flex-direction: column; /* Elementos en columna */
+    overflow: hidden; /* Oculta desbordes */
+    font-size: 14px; /* Tamaño de fuente del chat */
+}
+
+#chat-header {
+    background: #2c3e50; /* Fondo azul oscuro del encabezado */
+    color: white; /* Texto blanco */
+    padding: 12px; /* Espaciado interno */
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Centrado del texto */
+}
+
+#chat-body {
+    flex: 1; /* Ocupa el espacio restante en la ventana */
+    padding: 15px; /* Espaciado interno */
+    overflow-y: auto; /* Permite scroll vertical */
+    display: flex; /* Flexbox para organizar mensajes */
+    flex-direction: column; /* Mensajes en columna */
+    gap: 12px; /* Espacio entre mensajes */
+}
+
+.user-message, .bot-message {
+    padding: 0; /* Sin padding directo */
+    margin: 0; /* Sin margen directo */
+    max-width: 85%; /* Limita ancho máximo del mensaje */
+}
+
+.user-message p, .bot-message p {
+    padding: 10px 15px; /* Espaciado interno de cada mensaje */
+    border-radius: 18px; /* Bordes redondeados tipo burbuja */
+    margin: 0; /* Sin margen */
+    word-wrap: break-word; /* Permite romper palabras largas */
+}
+
+.user-message {
+    align-self: flex-end; /* Mensajes del usuario alineados a la derecha */
+}
+.user-message p {
+    background: #2980b9; /* Fondo azul para mensajes del usuario */
+    color: white; /* Texto blanco */
+    border-bottom-right-radius: 4px; /* Ajuste de esquina inferior derecha */
+}
+
+.bot-message {
+    align-self: flex-start; /* Mensajes del bot alineados a la izquierda */
+}
+.bot-message p {
+    background: #ecf0f1; /* Fondo gris claro para mensajes del bot */
+    color: #333; /* Texto oscuro */
+    border-bottom-left-radius: 4px; /* Ajuste de esquina inferior izquierda */
+}
+
+.animated-message {
+    animation: fadeInUp 0.5s ease-out forwards; /* Animación para que los mensajes aparezcan con efecto */
+}
+
+#chat-input {
+    border: none; /* Sin borde visible */
+    padding: 12px; /* Espaciado interno */
+    border-top: 1px solid #ccc; /* Línea superior para separar input */
+    width: 100%; /* Ocupa todo el ancho del chat */
+    box-sizing: border-box; /* Incluye padding dentro del ancho total */
+}
+
+#chat-toggle {
+    background: #27ae60; /* Fondo verde del botón flotante */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    width: 60px; /* Ancho del botón */
+    height: 60px; /* Alto del botón */
+    border-radius: 50%; /* Botón circular */
+    font-size: 24px; /* Tamaño del ícono */
+    cursor: pointer; /* Cursor de puntero */
+    display: flex; /* Flexbox para centrar ícono */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra ligera */
+    transition: transform 0.3s; /* Transición suave al hacer hover */
+}
+
+#chat-toggle:hover {
+    transform: scale(1.1); /* Leve aumento de tamaño al pasar cursor */
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Fondo con degradado diagonal */
+    color: white; /* Texto blanco */
+    text-align: center; /* Texto centrado */
+    padding: 20px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Modal */
+#modal-form {
+    position: fixed; /* Fija el modal sobre toda la ventana */
+    z-index: 1002; /* Asegura que esté por encima de otros elementos */
+    left: 0; /* Posición izquierda 0 */
+    top: 0; /* Posición superior 0 */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente oscuro */
+    display: flex; /* Flexbox para centrar contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    overflow-y: auto; /* Permite scroll vertical si el contenido es grande */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Fondo blanco */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra para profundidad */
+    width: 90%; /* Ancho del modal relativo al contenedor */
+    max-width: 500px; /* Ancho máximo */
+    position: relative; /* Posicionamiento relativo para elementos internos */
+    animation: fadeIn 0.5s; /* Animación de aparición */
+}
+
+.modal-content h3 {
+    margin-top: 0; /* Quita margen superior */
+    color: #2c3e50; /* Color del título */
+    text-align: center; /* Centra el texto */
+}
+
+.close-button {
+    color: #aaa; /* Color gris del botón de cerrar */
+    position: absolute; /* Posición absoluta dentro del modal */
+    top: 15px; /* Distancia desde la parte superior */
+    right: 25px; /* Distancia desde la derecha */
+    font-size: 28px; /* Tamaño de fuente grande para el botón */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Cambia el cursor al pasar */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333; /* Cambia a gris oscuro al pasar o enfocar */
+    text-decoration: none; /* Quita subrayado */
+}
+
+/* Animación de fade-in para modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50px); } /* Inicio: transparente y desplazado hacia arriba */
+    to { opacity: 1; transform: translateY(0); } /* Fin: opaco y en posición */
+}
+
+/* ===== MEDIA QUERIES: RESPONSIVE ===== */
+
+/* Pantallas menores a 1024px */
+@media screen and (max-width: 1024px) {
+    .hero h1 { font-size: 36px; } /* Título más pequeño */
+    .hero p { font-size: 18px; } /* Subtítulo más pequeño */
+    .section { padding: 50px 15px; } /* Menos padding en secciones */
+    .cards { gap: 20px; } /* Menos espacio entre tarjetas */
+}
+
+/* Pantallas menores a 768px */
+@media screen and (max-width: 768px) {
+    header { flex-direction: column; align-items: flex-start; padding: 10px 15px; } /* Header vertical y padding reducido */
+    header nav ul { flex-direction: column; gap: 10px; } /* Menú vertical */
+    .hero { padding: 80px 10px; } /* Menos padding en hero */
+    .hero h1 { font-size: 28px; } /* Título más pequeño */
+    .hero p { font-size: 16px; } /* Subtítulo más pequeño */
+    .cards { grid-template-columns: 1fr; } /* Tarjetas en columna única */
+    .formulario { padding: 20px; } /* Padding reducido en formulario */
+    #calendar { font-size: 11px; overflow-x: auto; } /* Calendario más pequeño y scroll horizontal */
+}
+
+/* Pantallas menores a 480px */
+@media screen and (max-width: 480px) {
+    .hero { padding: 60px 5px; } /* Hero con padding muy reducido */
+    .hero h1 { font-size: 22px; } /* Título más pequeño aún */
+    .hero p { font-size: 14px; } /* Subtítulo más pequeño aún */
+    header .logo { font-size: 18px; } /* Logo más pequeño */
+    .btn { padding: 10px 20px; font-size: 14px; } /* Botón más pequeño */
+    .detalle-tramite button { padding: 10px 20px; font-size: 13px; } /* Botones detalle más pequeños */
+    #chat-window { width: 90%; height: 350px; } /* Chat más compacto */
+    #chat-toggle { width: 50px; height: 50px; font-size: 20px; } /* Botón de chat más pequeño */
+}
+
+/* ===== FULLCALENDAR RESPONSIVO ===== */
+#calendar {
+    max-width: 100%; /* No exceda el ancho del contenedor */
+    overflow-x: auto; /* Scroll horizontal si es necesario */
+    box-sizing: border-box; /* Padding incluido en ancho */
+}
+
+
+/* Ajuste de fuentes y tamaño de celdas para móviles */
+@media screen and (max-width: 768px) {
+    .fc .fc-toolbar-title {
+        font-size: 16px; /* Título del mes más pequeño */
+    }
+    .fc th, .fc td {
+        font-size: 10px; /* Tamaño de días más pequeño */
+        padding: 4px;    /* Reduce padding de celdas */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .fc .fc-toolbar-title {
+        font-size: 14px; /* Título aún más pequeño */
+    }
+    .fc th, .fc td {
+        font-size: 9px; /* Tamaño mínimo de días */
+        padding: 3px; /* Padding mínimo */
+    }
+}
